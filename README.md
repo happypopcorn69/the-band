@@ -272,9 +272,3 @@ Edit `.claude/settings.json`:
 ## 📝 License
 
 MIT - Use freely, modify as needed.
-
-## 🎸 Origin & Credit
-
-- This multi-agent system was designed and built in collaboration with Claude (Anthropic) during a sleep-deprived holiday sprint in late 2025. The architecture emerged from a conversation about how agent swarms could be adapted for creative development workflows — specifically, how to take the general concept and make it actually useful for building weird, wonderful, non-monetizable projects.
-If you find this useful, that's the dream. Go make something fun with it.
-- [Filip & Claude & Toots](www.staysalted.org)
