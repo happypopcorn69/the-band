@@ -84,8 +84,9 @@ def is_dangerous_bash(command: str) -> tuple[bool, str]:
 
 def is_sensitive_file(file_path: str) -> tuple[bool, str]:
     """Check if accessing a sensitive file."""
+    file_path_lower = file_path.lower()
     for protected in PROTECTED_FILES:
-        if protected in file_path:
+        if protected.lower() in file_path_lower:
             return True, f"Attempted access to sensitive file: {protected}"
     
     return False, ""
