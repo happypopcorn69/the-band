@@ -1,0 +1,17 @@
+# Claude Code logs - generated at runtime
+.claude/logs/
+
+# Environment variables
+.env
+.env.local
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
