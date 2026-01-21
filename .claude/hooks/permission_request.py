@@ -40,8 +40,8 @@ SAFE_OPERATIONS = {
 
 # Operations that need review based on compliance level
 MODERATE_APPROVE = {
-    "Write": lambda inp: not is_critical_file(inp.get("file_path", "")),
-    "Edit": lambda inp: not is_critical_file(inp.get("file_path", "")),
+    "Write": lambda inp: not is_critical_file(target_path_from_input(inp)),
+    "Edit": lambda inp: not is_critical_file(target_path_from_input(inp)),
     "Bash": lambda inp: is_safe_bash_command(inp.get("command", "")),
 }
 
@@ -64,7 +64,7 @@ CRITICAL_FILES = [
 # Safe bash command patterns
 SAFE_BASH_PATTERNS = [
     "ls", "cat", "head", "tail", "grep", "find", "echo",
-    "pwd", "which", "type", "file", "wc", "sort", "uniq",
+    "pwd", "which", "type", "file", "wc", "sort", "uniq", "rg", "fd",
     "npm run", "npm test", "npm start", "npm build",
     "yarn run", "yarn test", "yarn start", "yarn build",
     "python -m pytest", "pytest", "python -m unittest",
@@ -94,10 +94,16 @@ def log_event(event_type: str, data: dict):
         f.write(json.dumps(log_entry) + "\n")
 
 
+def target_path_from_input(tool_input: dict) -> str:
+    """Extract a file path from tool input."""
+    return tool_input.get("file_path", "") or tool_input.get("path", "")
+
+
 def is_critical_file(file_path: str) -> bool:
     """Check if a file is critical and needs manual review."""
+    file_path_lower = file_path.lower()
     for pattern in CRITICAL_FILES:
-        if pattern in file_path:
+        if pattern.lower() in file_path_lower:
             return True
     return False
 
